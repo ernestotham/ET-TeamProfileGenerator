@@ -1,0 +1,29 @@
+{
+  "name": "et-teamprofilegenerator",
+  "version": "1.0.0",
+  "description": "This is an app to generate a team profile page in HTML",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords":[
+    "jest"
+  ],
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ernestotham/ET-TeamProfileGenerator.git"
+  },
+  "author": "Ernesto Tham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ernestotham/ET-TeamProfileGenerator/issues"
+  },
+  "homepage": "https://github.com/ernestotham/ET-TeamProfileGenerator#readme",
+  "devDependencies": {
+    "jest": "^27.4.7"
+  }
+}
