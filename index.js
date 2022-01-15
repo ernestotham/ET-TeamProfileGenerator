@@ -3,9 +3,14 @@ const Employee = require('./lib/employee');
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
-const { assignWith } = require("lodash");
 
-class runapp {
+
+const ManagerInfo = []
+const EngineerListInfo = []
+const InternListInfo = []
+
+
+class runApp {
 
     constructor() {
         this.status = "started"
@@ -59,6 +64,7 @@ class runapp {
             ])
             .then((val) =>{
                 console.log(val);
+                EngineerListInfo.push(new Engineer(val['EngineerName'],val['EngineerId'],val['EngineerEmail'],val['EngineerGithub']))
                 return val
 
             })
@@ -93,6 +99,7 @@ class runapp {
                 ])    
                 .then((val) =>{
                     console.log(val);
+                    InternListInfo.push(new Intern(val['InternName'],val['InternId'],val['InternEmail'],val['InternSchool']))
                     return val
 
                 })
@@ -151,11 +158,17 @@ class runapp {
                     type: "input",
                     name: 'managerEmail',
                     message: "What is the team manager's email?"
+                },
+                {
+                    type: "input",
+                    name: 'managerOfficeNumber',
+                    message: "What is the team manager's office number?"
                 }
             ])
             .then(val =>{
 
                 console.log(val);
+                ManagerInfo.push(new Manager(val['managerName'],val['managerId'],val['managerEmail'],val['managerOfficeNumber']))
                 this.moreMembers()
                 
 
@@ -169,7 +182,8 @@ class runapp {
 
     }
 
+    
 
-
-    app = new runapp()
+    app = new runApp()
     app.askForManager()
+    
