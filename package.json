@@ -9,10 +9,9 @@
   "scripts": {
     "test": "jest"
   },
-  "keywords":[
+  "keywords": [
     "jest"
   ],
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ernestotham/ET-TeamProfileGenerator.git"
@@ -25,5 +24,8 @@
   "homepage": "https://github.com/ernestotham/ET-TeamProfileGenerator#readme",
   "devDependencies": {
     "jest": "^27.4.7"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.0"
   }
 }
