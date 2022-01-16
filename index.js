@@ -1,14 +1,27 @@
 const inquirer =require("inquirer");
-const Employee = require('./lib/employee');
+const HTML = require('./lib/buildHTML');
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
+const fs = require('fs');
 
 
-const ManagerInfo = []
-const EngineerListInfo = []
-const InternListInfo = []
+let ManagerInfo = []
+let EngineerListInfo = []
+let InternListInfo = []
+let pageResult = ""
 
+function printHTML(filename, data){
+    return new Promise((resolve, reject) => {
+  
+      fs.writeFile(`./dist/${filename}`, data, function (err) {
+        if (err) reject(err);
+        else resolve(`data was written `+data)
+  
+      })
+  
+    })
+  }
 
 class runApp {
 
@@ -16,6 +29,45 @@ class runApp {
         this.status = "started"
 
     }
+
+
+    askForManager() {
+        return inquirer
+            .prompt([
+                {
+                    type: "input",
+                    name: 'managerName',
+                    message: "What is the team manager's name?"
+                },
+                {
+                    type: "input",
+                    name: 'managerId',
+                    message: "What is the team manager's id?"
+                },
+                {
+                    type: "input",
+                    name: 'managerEmail',
+                    message: "What is the team manager's email?"
+                },
+                {
+                    type: "input",
+                    name: 'managerOfficeNumber',
+                    message: "What is the team manager's office number?"
+                }
+            ])
+            .then(val =>{
+
+                console.log(val);
+                ManagerInfo.push(new Manager(val['managerName'],val['managerId'],val['managerEmail'],val['managerOfficeNumber']))
+                this.moreMembers()
+                
+
+            })
+        
+            
+            
+    }
+
 
     askForTeamMember() {
 
@@ -113,7 +165,12 @@ class runApp {
             
             
                     if(val['TeamMember'] == `I don't want to add any more team members`){
-                    
+                        //call gen HTML
+                        pageResult = new HTML(ManagerInfo,EngineerListInfo,InternListInfo )
+                        var data = pageResult.genHTMLPage()
+                        // console.log(data)
+                        printHTML("index.html",data)
+
                     }
 
                     else if(val['TeamMember'] == 'Engineer'){
@@ -141,42 +198,7 @@ class runApp {
     
 
 
-    askForManager() {
-        return inquirer
-            .prompt([
-                {
-                    type: "input",
-                    name: 'managerName',
-                    message: "What is the team manager's name?"
-                },
-                {
-                    type: "input",
-                    name: 'managerId',
-                    message: "What is the team manager's id?"
-                },
-                {
-                    type: "input",
-                    name: 'managerEmail',
-                    message: "What is the team manager's email?"
-                },
-                {
-                    type: "input",
-                    name: 'managerOfficeNumber',
-                    message: "What is the team manager's office number?"
-                }
-            ])
-            .then(val =>{
 
-                console.log(val);
-                ManagerInfo.push(new Manager(val['managerName'],val['managerId'],val['managerEmail'],val['managerOfficeNumber']))
-                this.moreMembers()
-                
-
-            })
-        
-            
-            
-    }
 
         
 
@@ -186,4 +208,3 @@ class runApp {
 
     app = new runApp()
     app.askForManager()
-    
